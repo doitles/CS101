@@ -4,7 +4,7 @@
 //6/3/15
 //CS101
 //Allen Van Gelder
-//minPQ.c
+//minPQ.h
 //defines a minpq
 
 /* minPQ.h (what is the purpose of this file?)
