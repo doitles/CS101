@@ -1,20 +1,5 @@
 # CS101
 README
-README file for Programming Assignment 4
-
-------------------------------------------------------------------------------------------------------------------------------
-Files being submitted
-------------------------------------------------------------------------------------------------------------------------------
-Makefile
-graph04.c
-edgeList.c
-edgeList.h
-minPQ.c
-minPQ.h
-test.txt
-test2.txt
-test3.txt
-test4.txt
 
 
 The program will take a command line and use Prim's minimum algorithm and run it on the graph to find the shortest path
