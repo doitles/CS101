@@ -39,48 +39,41 @@ def merge(A, low, mid, high):
             A[k] = right[j]
             j += 1
 #test
-import time
 import timeit
 import numpy as np
 
-F = timeit.Timer(“scipy.mean(range(1000))”,”import scipy”)
-T = [0] * 3
-A = np.arange(10000)
-start = time.time()
+T = [0] * 1000
+A = np.arange(1000)
 print("Best Case:")
 print(A)
-mergeSort(A, 0, 9999)
+E = timeit.Timer(lambda: mergeSort(A, 0, 999))
 print("Sorted Array:")
 print(A)
-end = time.time()
-print("Time: ")
-print("%s seconds " % (end - start))
-T[0] = (end - start)
+T = E.repeat(repeat = 1000, number = 1)
+print("Times: ")
+print("%s seconds " % T)
 
-B = np.arange(10000)
+T1 = [0] * 1000
+B = np.arange(1000)
 B1 = B[::2]
 B2 = B[1::2]
 B3 = np.concatenate((B1, B2), axis=1)
-start1 = time.time()
-#A1 = np.array(np.random.random_integers(0, 100, 10000))
 print("Worst Case:")
 print(B3)
-mergeSort(B3, 0, 9999) 
-print("Sorted List:")
+F = timeit.Timer(lambda: mergeSort(B3, 0, 999))
+print("Sorted Array:")
 print(B3)
-end1 = time.time()
+T1 = F.repeat(repeat = 1000, number = 1)
 print("Time: ")
-print("%s seconds " % (end1 - start1))
-T[1] = (end1 - start1)
+print("%s seconds " % T1)
 
-C = np.array(np.random.random_integers(0, 10000, 10000))
-start = time.time()
+T2 = [0] * 1000
+C = np.array(np.random.random_integers(0, 1000, 1000))
 print("Random Case:")
 print(C)
-mergeSort(C, 0, 9999)
+G = timeit.Timer(lambda: mergeSort(C, 0, 999))
 print("Sorted Array:")
 print(C)
-end = time.time()
+T2 = G.repeat(repeat = 1000, number = 1)
 print("Time: ")
-print("%s seconds " % (end - start))
-T[2] = (end - start)
+print("%s seconds " % T2)
