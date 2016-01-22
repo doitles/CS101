@@ -40,9 +40,11 @@ def merge(A, low, mid, high):
             j += 1
 #test
 import time
+import timeit
 import numpy as np
 
-T = [0] * 2
+F = timeit.Timer(“scipy.mean(range(1000))”,”import scipy”)
+T = [0] * 3
 A = np.arange(10000)
 start = time.time()
 print("Best Case:")
@@ -55,14 +57,30 @@ print("Time: ")
 print("%s seconds " % (end - start))
 T[0] = (end - start)
 
+B = np.arange(10000)
+B1 = B[::2]
+B2 = B[1::2]
+B3 = np.concatenate((B1, B2), axis=1)
 start1 = time.time()
-A1 = np.array(np.random.random_integers(0, 100, 10000))
+#A1 = np.array(np.random.random_integers(0, 100, 10000))
 print("Worst Case:")
-print(A1)
-mergeSort(A1, 0, 9999) 
+print(B3)
+mergeSort(B3, 0, 9999) 
 print("Sorted List:")
-print(A1)
+print(B3)
 end1 = time.time()
 print("Time: ")
 print("%s seconds " % (end1 - start1))
 T[1] = (end1 - start1)
+
+C = np.array(np.random.random_integers(0, 10000, 10000))
+start = time.time()
+print("Random Case:")
+print(C)
+mergeSort(C, 0, 9999)
+print("Sorted Array:")
+print(C)
+end = time.time()
+print("Time: ")
+print("%s seconds " % (end - start))
+T[2] = (end - start)
