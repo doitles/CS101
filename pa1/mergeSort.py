@@ -39,41 +39,51 @@ def merge(A, low, mid, high):
             A[k] = right[j]
             j += 1
 #test
+import scipy
 import timeit
 import numpy as np
 
-T = [0] * 1000
-A = np.arange(1000)
+T = [0] * 100
+A = np.arange(100)
 print("Best Case:")
 print(A)
-E = timeit.Timer(lambda: mergeSort(A, 0, 999))
+E = timeit.Timer(lambda: mergeSort(A, 0, 99))
 print("Sorted Array:")
 print(A)
-T = E.repeat(repeat = 1000, number = 1)
+T = E.repeat(repeat = 100, number = 1)
+R = (scipy.mean(E.repeat(repeat = 100,number = 1)))
 print("Times: ")
 print("%s seconds " % T)
+print("Average Time: ")
+print( "%s seconds" % R)
 
-T1 = [0] * 1000
-B = np.arange(1000)
+T1 = [0] * 100
+B = np.arange(100)
 B1 = B[::2]
 B2 = B[1::2]
 B3 = np.concatenate((B1, B2), axis=1)
 print("Worst Case:")
 print(B3)
-F = timeit.Timer(lambda: mergeSort(B3, 0, 999))
+F = timeit.Timer(lambda: mergeSort(B3, 0, 99))
 print("Sorted Array:")
 print(B3)
-T1 = F.repeat(repeat = 1000, number = 1)
-print("Time: ")
+T1 = F.repeat(repeat = 100, number = 1)
+Q = (scipy.mean(F.repeat(repeat = 100,number = 1)))
+print("Times: ")
 print("%s seconds " % T1)
+print("Average Time: ")
+print( "%s seconds" % Q)
 
-T2 = [0] * 1000
-C = np.array(np.random.random_integers(0, 1000, 1000))
+T2 = [0] * 100
+C = np.array(np.random.random_integers(0, 100, 100))
 print("Random Case:")
 print(C)
-G = timeit.Timer(lambda: mergeSort(C, 0, 999))
+G = timeit.Timer(lambda: mergeSort(C, 0, 99))
 print("Sorted Array:")
 print(C)
-T2 = G.repeat(repeat = 1000, number = 1)
-print("Time: ")
+T2 = G.repeat(repeat = 100, number = 1)
+S = (scipy.mean(G.repeat(repeat = 100,number = 1)))
+print("Times: ")
 print("%s seconds " % T2)
+print("Average Time: ")
+print( "%s seconds" % S)
