@@ -41,52 +41,39 @@ def merge(A, low, mid, high):
 #test
 import scipy
 import timeit
+import matplotlib
+matplotlib.use("PDF")
+import matplotlib.pyplot as plt
 import numpy as np
 
-T = [0] * 100
-A = np.arange(100)
-print("Best Case:")
-print(A)
-E = timeit.Timer(lambda: mergeSort(A, 0, 99))
-mergeSort(A, 0, 99)
-print("Sorted Array:")
-print(A)
-T = E.repeat(repeat = 100, number = 1)
-R = (scipy.mean(E.repeat(repeat = 100,number = 1)))
-print("Times: ")
-print("%s seconds " % T)
-print("Average Time: ")
-print( "%s seconds" % R)
+T = np.zeros(1000)
+T1 = np.zeros(1000)
+T2 = np.zeros(1000)
 
-T1 = [0] * 100
-B = np.arange(100)
-B1 = B[::2]
-B2 = B[1::2]
-B3 = np.concatenate((B1, B2), axis=1)
-print("Worst Case:")
-print(B3)
-F = timeit.Timer(lambda: mergeSort(B3, 0, 99))
-mergeSort(B3, 0, 99)
-print("Sorted Array:")
-print(B3)
-T1 = F.repeat(repeat = 100, number = 1)
-Q = (scipy.mean(F.repeat(repeat = 100,number = 1)))
-print("Times: ")
-print("%s seconds " % T1)
-print("Average Time: ")
-print( "%s seconds" % Q)
+for n in range(0,999):
+    #Best Case
+    A = np.arange(n + 1)
+    print(A)
+    E = timeit.Timer(lambda: mergeSort(A, 0, n ))
+    mergeSort(A, 0, n )
+    T[n] = (scipy.mean(E.repeat(repeat = 1,number = 1)))
+    plt.plot(A[n], T[n], 'ro')
 
-T2 = [0] * 100
-C = np.array(np.random.random_integers(0, 100, 100))
-print("Random Case:")
-print(C)
-G = timeit.Timer(lambda: mergeSort(C, 0, 99))
-mergeSort(C, 0, 99)
-print("Sorted Array:")
-print(C)
-T2 = G.repeat(repeat = 100, number = 1)
-S = (scipy.mean(G.repeat(repeat = 100,number = 1)))
-print("Times: ")
-print("%s seconds " % T2)
-print("Average Time: ")
-print( "%s seconds" % S)
+    #Worst Case
+    B = np.arange(n + 1)
+    B1 = B[::2]
+    B2 = B[1::2]
+    B3 = np.concatenate((B1, B2), axis = 1)
+    F = timeit.Timer(lambda: mergeSort(B3, 0, n ))
+    mergeSort(B3, 0, n )
+    T1[n] = (scipy.mean(F.repeat(repeat = 1,number = 1)))
+    plt.plot(B3[n], T1[n], 'bo')
+
+    #Random Case
+    C = np.array(np.random.random_integers(0, n + 1, n + 1))
+    G = timeit.Timer(lambda: mergeSort(C, 0, n ))
+    mergeSort(C, 0, n )
+    T2[n] = (scipy.mean(G.repeat(repeat = 1,number = 1)))
+    plt.plot(C[n], T2[n], 'go')
+
+plt.savefig("merge.pdf")
