@@ -18,7 +18,7 @@ class Node(object):
 class MyChainDict(object):
     #initialize the hash table with 0s
     def __init__(self):
-        size = 1048576                 #arbitrary large size
+        size = 100000                 #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
 
@@ -124,10 +124,19 @@ class MyChainDict(object):
                     pair = '->' + '(' + str(currnode.key) + ', ' + str(currnode.value) + ')'
                     currnode = currnode.next
                 print(pair)
+    
+    def rehash(self):
+        #rehashes the table if it is full
+        oldsize = self.table.length
+        newsize = oldsize * 2 + 1
+        newtable = np.zeros(newsize, dtype = object)
+        for i in range(oldsize):
+            while oldsize != None:
+                newtable[i] = self.table[i]
 
 class MyOpenLinearDict(object):
     def __init__(self):
-        size = 1048576               #arbitrary large size
+        size = 100000                #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
     
@@ -214,9 +223,18 @@ class MyOpenLinearDict(object):
         for i in np.arange(self.table.size):
             print(i, self.table[i])
 
+    def rehash(self):
+        #rehashes the table if it is full
+        oldsize = self.table.length
+        newsize = oldsize * 2 + 1
+        newtable = np.zeros(newsize, dtype = object)
+        for i in range(oldsize):
+            while oldsize != None:
+                newtable[i] = self.table[i]
+
 class MyOpenQuadDict(object):
     def __init__(self):
-        size = 1048576                #arbitrary large size
+        size = 100000                 #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
     
@@ -311,6 +329,15 @@ class MyOpenQuadDict(object):
         #simple for loop to print out the entire table linearly
         for i in np.arange(len(self.table)):
             print(i, self.table[i])
+            
+    def rehash(self):
+        #rehashes the table if it is full
+        oldsize = self.table.length
+        newsize = oldsize * 2 + 1
+        newtable = np.zeros(newsize, dtype = object)
+        for i in range(oldsize):
+            while oldsize != None:
+                newtable[i] = self.table[i]
 
 class MyChainSet(object):
     def __init__(self):
