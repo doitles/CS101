@@ -18,7 +18,7 @@ class Node(object):
 class MyChainDict(object):
     #initialize the hash table with 0s
     def __init__(self):
-        size = 100000                 #arbitrary large size
+        size = 1048576                 #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
 
@@ -118,16 +118,16 @@ class MyChainDict(object):
                 print(0)
             else:
                 currnode = i
-                pair = '(' + str(currnode.key) + ', ' + str(currnode.value) + ')'
+                pair = (str(currnode.key), str(currnode.value))
                 currnode = currnode.next
                 while currnode != None: 
-                    pair = '->' + '(' + str(currnode.key) + ', ' + str(currnode.value) + ')'
+                    pair = '->' + (str(currnode.key), str(currnode.value))
                     currnode = currnode.next
                 print(pair)
-    
+
     def rehash(self):
         #rehashes the table if it is full
-        oldsize = self.table.length
+        oldsize = self.table.size
         newsize = oldsize * 2 + 1
         newtable = np.zeros(newsize, dtype = object)
         for i in range(oldsize):
@@ -136,7 +136,7 @@ class MyChainDict(object):
 
 class MyOpenLinearDict(object):
     def __init__(self):
-        size = 100000                #arbitrary large size
+        size = 1048576               #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
     
@@ -169,7 +169,7 @@ class MyOpenLinearDict(object):
         if curr[0] == key and type(curr) == tuple:
             return True
         else:
-            while self.table[i % len(self.table)] != 0:
+            while self.table[i % self.table.size] != 0:
                 i += 1
                 if (curr[0] == key) and (type(curr) == tuple):
                     return True
@@ -225,7 +225,7 @@ class MyOpenLinearDict(object):
 
     def rehash(self):
         #rehashes the table if it is full
-        oldsize = self.table.length
+        oldsize = self.table.size
         newsize = oldsize * 2 + 1
         newtable = np.zeros(newsize, dtype = object)
         for i in range(oldsize):
@@ -234,7 +234,7 @@ class MyOpenLinearDict(object):
 
 class MyOpenQuadDict(object):
     def __init__(self):
-        size = 100000                 #arbitrary large size
+        size = 1048576                #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
     
@@ -327,12 +327,12 @@ class MyOpenQuadDict(object):
     
     def dump(self):
         #simple for loop to print out the entire table linearly
-        for i in np.arange(len(self.table)):
+        for i in np.arange(self.table.size):
             print(i, self.table[i])
-            
+
     def rehash(self):
         #rehashes the table if it is full
-        oldsize = self.table.length
+        oldsize = self.table.size
         newsize = oldsize * 2 + 1
         newtable = np.zeros(newsize, dtype = object)
         for i in range(oldsize):
@@ -340,54 +340,66 @@ class MyOpenQuadDict(object):
                 newtable[i] = self.table[i]
 
 class MyChainSet(object):
+    #intiate the set
     def __init__(self):
         self.mydict = MyChainDict()
         return
 
+    #insert both the data and satalite data
     def insert(self, key):
         self.mydict.insert(key, key)
         return
-    
+
+    #shows what the key contains
     def contains(self, key):
         return self.mydict.contains(key)
-
+ 
+    #simple for loop to print out the values and keys
     def dump(self):
         for k in self.mydict.get_key_values():
-            print(k[0])
-
+            print(k, k[0])
+                
 class MyOpenLinearSet(object):
+    #intiate the set
     def __init__(self):
         self.mydict = MyOpenLinearDict()
         return
 
+    #insert both the data and satalite data
     def insert(self, key):
         #value = self.key
         self.mydict.insert(key, key)
         return
     
+    #shows what the key contains
     def contains(self, key):
         return self.mydict.contains(key)
-
+    
+    #simple for loop to print out the values and keys
     def dump(self):
         for k in self.mydict.get_key_values():
-            print(k[0])
+            print(k, k[0])
 
 class MyOpenQuadSet(object):
+    #intiate the set
     def __init__(self):
         self.mydict = MyOpenQuadDict()
         return
 
+    #insert both the data and satalite data
     def insert(self, key):
         #value = self.key
         self.mydict.insert(key, key)
         return
     
+    #shows what the key contains
     def contains(self, key):
         return self.mydict.contains(key)
 
+    #simple for loop to print out the values and keys
     def dump(self):
         for k in self.mydict.get_key_values():
-            print(k[0])
+            print(k, k[0])
 
 
 ######## End code which needs to be modified ##########
@@ -395,7 +407,7 @@ class MyOpenQuadSet(object):
 
 # Store the set of stop words in a set object
 stop_words_file = "stopwords.txt"
-stop_words = MyOpenLinearSet()
+stop_words = MyOpenQuadSet()
 
 with open(stop_words_file) as f:
     for l in f:
