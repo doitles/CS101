@@ -18,7 +18,7 @@ class Node(object):
 class MyChainDict(object):
     #initialize the hash table with 0s
     def __init__(self):
-        size = 100000                 #arbitrary large size
+        size = 1048576                 #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
 
@@ -127,7 +127,7 @@ class MyChainDict(object):
 
 class MyOpenLinearDict(object):
     def __init__(self):
-        size = 100000                #arbitrary large size
+        size = 1048576               #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
     
@@ -216,7 +216,7 @@ class MyOpenLinearDict(object):
 
 class MyOpenQuadDict(object):
     def __init__(self):
-        size = 100000                 #arbitrary large size
+        size = 1048576                #arbitrary large size
         self.table = np.zeros(size, dtype = object)
         return
     
